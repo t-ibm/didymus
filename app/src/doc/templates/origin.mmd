@@ -1,38 +1,29 @@
 flowchart BT
   subgraph hub[Hub]
-    hub.ctp(("#8200;CTP#8200;"))
-    hub.nx(("NGINX"))
     subgraph hub.git["Git"]
       subgraph hub.git.project["Project"]
         hub.git.wf["Workflow"]
-        hub.git.sd["Scaffold"]
-        hub.git.am["Agent Manifest"]
+        hub.git.sd(["Scaffold"])
+        hub.git.am(["Agent Manifest"])
       end
       subgraph hub.git.pkg["Package"]
         hub.git.pkg.pkg["Package"]
       end
     end
     subgraph hub.svc["Service Runtime"]
-      hub.svc.scaffold["Scaffold"]
+      hub.svc.scaffold(["Scaffold"])
+      hub.svc.agent(["Dev Agent"])
       hub.svc.pkg["Package"]
-      hub.svc.agent["Dev Agent"]
     end
   end
   subgraph spoke [Spoke]
-    spoke.nx(("NGINX"))
     subgraph spoke.svc["Service Runtime"]
-      spoke.svc.scaffold["Scaffold"]
+      spoke.svc.agent(["Test Agent"])
       spoke.svc.pkg["Package"]
-      spoke.svc.agent["Test Agent"]
     end
   end
-  hub.svc.scaffold -- push scaffold & manifest --> hub.ctp
-  hub.svc.pkg -- push package--> hub.ctp
-  spoke.svc.scaffold -- pull scaffold --> hub.nx
-  spoke.svc.pkg -- pull package--> hub.nx
-  spoke.svc.agent -- pull manifest --> hub.nx
-  hub.nx --> hub.ctp
-  hub.ctp --> hub.git.am
-  hub.ctp --> hub.git.pkg.pkg
-  hub.ctp --> hub.git.sd
-  hub.ctp -- delegate --> spoke.nx --> spoke.svc
+  hub.svc -- push scaffold --> hub.git.sd
+  hub.svc -- push manifest --> hub.git.am
+  hub.svc -- push package ---> hub.git.pkg.pkg
+  spoke.svc -- pull manifest ---> hub.svc
+  spoke.svc -- pull package --> hub.svc & hub.git.pkg.pkg
