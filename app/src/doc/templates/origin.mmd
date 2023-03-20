@@ -1,29 +1,33 @@
-flowchart BT
+flowchart LR
+  github[GitHub]
   subgraph hub[Hub]
-    subgraph hub.git["Git"]
+    hub.tsr["Tenant Service Runtime"]
+    subgraph hub.git["GiTea"]
       subgraph hub.git.project["Project"]
-        hub.git.wf["Workflow"]
-        hub.git.sd(["Scaffold"])
-        hub.git.am(["Agent Manifest"])
+        hub.git.project.wf(["Workflow"])
       end
       subgraph hub.git.pkg["Package"]
-        hub.git.pkg.pkg["Package"]
+        hub.git.pkg.pkg(["Package"])
       end
     end
-    subgraph hub.svc["Service Runtime"]
+    subgraph hub.svc["Default Service Runtime"]
+      hub.svc.agent["Default Agent"]
+      hub.svc.am(["Agent Manifest"])
       hub.svc.scaffold(["Scaffold"])
-      hub.svc.agent(["Dev Agent"])
-      hub.svc.pkg["Package"]
+      hub.svc.pkg(["Package"])
     end
   end
   subgraph spoke [Spoke]
-    subgraph spoke.svc["Service Runtime"]
-      spoke.svc.agent(["Test Agent"])
-      spoke.svc.pkg["Package"]
+    subgraph spoke.svc["Edge Service Runtime"]
+      spoke.svc.agent["Test Agent"]
+      spoke.svc.pkg(["Package"])
     end
   end
-  hub.svc -- push scaffold --> hub.git.sd
-  hub.svc -- push manifest --> hub.git.am
-  hub.svc -- push package ---> hub.git.pkg.pkg
-  spoke.svc -- pull manifest ---> hub.svc
-  spoke.svc -- pull package --> hub.svc & hub.git.pkg.pkg
+  hub.tsr -- push manifest --> hub.svc.am
+  hub.tsr -- push package --> hub.svc.pkg
+  hub.svc.pkg -.- hub.git.pkg.pkg
+  hub.svc.scaffold -.- hub.git.pkg.pkg
+  hub.svc -- pull package --> github
+  spoke.svc -- pull manifest --> hub.svc
+  spoke.svc -- pull package --> hub.git.pkg
+  spoke.svc -- pull package --> github
