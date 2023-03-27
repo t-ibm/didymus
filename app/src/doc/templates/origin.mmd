@@ -1,33 +1,51 @@
+%%{
+  init: {
+    'themeVariables': {
+      'fontFamily': 'monospace'
+    }
+  }
+}%%
 flowchart LR
   github[GitHub]
   subgraph hub[Hub]
     hub.tsr["Tenant Service Runtime"]
     subgraph hub.git["GiTea"]
       subgraph hub.git.project["Project"]
-        hub.git.project.wf(["Workflow"])
+        hub.git.project.wf["Workflow"]
       end
       subgraph hub.git.pkg["Package"]
-        hub.git.pkg.pkg(["Package"])
+        hub.git.pkg.my["MyPackage"]
       end
     end
     subgraph hub.svc["Default Service Runtime"]
-      hub.svc.agent["Default Agent"]
-      hub.svc.am(["Agent Manifest"])
-      hub.svc.scaffold(["Scaffold"])
-      hub.svc.pkg(["Package"])
+      hub.svc.am["<div style='text-align: left;'>└── config
+#8200;#8200;#8200;#8200;└── integrationlive
+#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── scaffolding
+#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── f2fbf96f-db99-4645-8014-2f8ea42222f2.yml
+</div>"]
+      hub.svc.scaffold["<div style='text-align: left;'>└── packages
+#8200;#8200;#8200;#8200;└── MyPackage
+#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── config
+#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── scaffolding
+#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── MyPackage.yml
+</div>"]
+      hub.svc.agent(["Default Agent"])
     end
   end
   subgraph spoke [Spoke]
     subgraph spoke.svc["Edge Service Runtime"]
-      spoke.svc.agent["Test Agent"]
-      spoke.svc.pkg(["Package"])
+      spoke.svc.am["<div style='text-align: left;'>└── config
+#8200;#8200;#8200;#8200;└── scaffolding
+#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── f2fbf96f-db99-4645-8014-2f8ea42222f2.yml
+</div>"]
+      spoke.svc.pkg["MyPackage"]
+      spoke.svc.agent(["Test Agent"])
     end
   end
-  hub.tsr -- push manifest --> hub.svc.am
-  hub.tsr -- push package --> hub.svc.pkg
-  hub.svc.pkg -.- hub.git.pkg.pkg
-  hub.svc.scaffold -.- hub.git.pkg.pkg
+  hub.tsr -- generate scaffolding --> hub.svc.scaffold
+  hub.tsr -- generate agent manifest --> hub.svc.am
+  hub.svc.scaffold -.- hub.git.pkg.my
   hub.svc -- pull package --> github
-  spoke.svc -- pull manifest --> hub.svc
-  spoke.svc -- pull package --> hub.git.pkg
-  spoke.svc -- pull package --> github
+  spoke.svc.am -- request refresh --> hub.svc.am
+  spoke.svc.pkg -- pull package --> hub.git.pkg.my
+  spoke.svc.pkg -- pull package --> github
