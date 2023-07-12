@@ -17,21 +17,25 @@ tasks {
         delete(project.layout.buildDirectory)
     }
 
-    val createDiagram by registering(NpxTask::class) {
-        val destinationDir = project.layout.buildDirectory.dir("images")
-        group = "npm"
-        description = "Creates the 'origin.svg' file from the 'origin.mmd' template."
-        command.set("@mermaid-js/mermaid-cli")
-        args.set(
-            listOf(
-                "mmdc", "--backgroundColor=transparent",
-                "--input", project.layout.projectDirectory.file("src/doc/templates/origin.mmd").toString(),
-                "--output", destinationDir.get().file("origin.svg").toString()
+    addRule("Pattern: createDiagram<ID>") {
+        val taskName = this
+        val id = taskName.replace("createDiagram", "").lowercase()
+        register<NpxTask>(taskName) {
+            val destinationDir = project.layout.buildDirectory.dir("images")
+            group = "npm"
+            description = "Creates the '$id.svg' file from the '$id.mmd' template."
+            command.set("@mermaid-js/mermaid-cli")
+            args.set(
+                    listOf(
+                            "mmdc", "--backgroundColor=transparent",
+                            "--input", project.layout.projectDirectory.file("src/doc/templates/$id.mmd").toString(),
+                            "--output", destinationDir.get().file("$id.svg").toString()
+                    )
             )
-        )
-        doFirst {
-            project.mkdir(destinationDir)
+            doFirst {
+                project.mkdir(destinationDir)
+            }
         }
     }
-    project.rootProject.defaultTasks(clean.get(), createDiagram.get())
+    project.rootProject.defaultTasks(clean.get().name, "createDiagramOrigin", "createDiagramCreateDefaultEdge", "createDiagramCreateEdgeDefault")
 }
