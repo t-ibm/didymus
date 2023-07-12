@@ -17,11 +17,11 @@ subgraph hub.git.pkg["Package"]
 hub.git.pkg.my["MyPackage"]
 end
 end
-subgraph hub.svc["Default Service Runtime"]
+subgraph hub.svc["Default Agent"]
 hub.svc.am["<div style='text-align: left;'>└── config
 #8200;#8200;#8200;#8200;└── integrationlive
 #8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── scaffolding
-#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── f2fbf96f-db99-4645-8014-2f8ea42222f2.yml
+#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── 123e4567-e89b-12d3-a456-426655440000.yml
 </div>"]
 hub.svc.pkg["<div style='text-align: left;'>└── packages
 #8200;#8200;#8200;#8200;└── MyPackage
@@ -32,10 +32,10 @@ hub.svc.pkg["<div style='text-align: left;'>└── packages
 end
 end
 subgraph spoke [Spoke]
-subgraph spoke.svc["Edge Service Runtime"]
+subgraph spoke.svc["Edge Agent"]
 spoke.svc.am["<div style='text-align: left;'>└── config
 #8200;#8200;#8200;#8200;└── scaffolding
-#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── f2fbf96f-db99-4645-8014-2f8ea42222f2.yml
+#8200;#8200;#8200;#8200;#8200;#8200;#8200;#8200;└── 123e4567-e89b-12d3-a456-426655440000.yml
 </div>"]
 spoke.svc.pkg["MyPackage"]
 end
