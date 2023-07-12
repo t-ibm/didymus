@@ -19,7 +19,7 @@ tasks {
 
     addRule("Pattern: createDiagram<ID>") {
         val taskName = this
-        val id = taskName.replace("createDiagram", "").lowercase()
+        val id = taskName.replace("createDiagram", "").replaceFirstChar { it.lowercase() }
         register<NpxTask>(taskName) {
             val destinationDir = project.layout.buildDirectory.dir("images")
             group = "npm"
