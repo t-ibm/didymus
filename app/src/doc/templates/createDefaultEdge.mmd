@@ -3,12 +3,17 @@ sequenceDiagram
     participant C as CTP
     participant D as Default Agent
     participant E as Edge Agent
-    A->>+C: /admin/agentmanifest/create
-    Note over A,C: agentGroup=Default<br>agentID=default
+    A->>C: POST request /admin/agentmanifest/create
+    activate C
+    Note right of A: agentGroup=Default<br>agentID=default#8200;
     C->>D: :createAgentManifest
     activate D
-    D->>D: saveScaffolding
-    D->>D: saveDefaultAgentManifest
-    D->>+E: saveEdgeAgentManifest
+    C-->>A: response status code
+    deactivate C
+    D->>D: dfs.saveScaffolding
+    D->>D: dfs.saveDefaultAgentManifest
+    D->>E: dfs.saveEdgeAgentManifest
     deactivate D
-    E-->>-C: edgeServerPing
+    activate E
+    E-->>C: :edgeServerPing
+    deactivate E
