@@ -1,0 +1,14 @@
+sequenceDiagram
+    actor A as Alice
+    participant C as CTP
+    participant D as Default Agent
+    participant E as Edge Agent
+    A->>+C: /admin/agentmanifest/create
+    Note over A,C: agentGroup=Default<br>agentID=default
+    C->>+D: createAgentManifest
+    D->>D: saveScaffolding
+    D->>-D: saveAgentManifest
+    D->>+E: createAgentManifest
+    E->>D: loadDefaultAgentManifest
+    E->>E: saveAgentManifest
+    E-->>-C: edgeServerPing
