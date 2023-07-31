@@ -3,10 +3,10 @@ sequenceDiagram
     participant C as CTP
     participant D as Default Agent
     participant E as Edge Agent
-    A->>C: POST /admin/agentmanifest/create
+    A->>C: POST /admin/agentmanifest/sync
     activate C
     Note right of A: agentGroup=Default<br>agentID=123e4567-e89b-12d3-a456-426655440000#8200;
-    C->>E: :createAgentManifest
+    C->>E: :syncAgentManifest
     activate E
     C-->>A: response status code
     deactivate C
