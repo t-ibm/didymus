@@ -12,7 +12,12 @@ WmPublic,webM Public services,2
 Packages,WmSample,2
 WmSample,webM Sample services,2
 
-Enterprise services,Adapters,8
+Layered Products,"$type",2
+"$type","webM $type Product",2
+Connectors,"$protocol",2
+"$protocol","webM $protocol Connector",2
+Enterprise services,Layered Products,2
+Enterprise services,Adapters,9
 Adapters,JDBC,4
 JDBC,Amazon RDS,2
 JDBC,Amazon Aurora,2
@@ -20,12 +25,7 @@ Adapters,FlatFile,1
 FlatFile,Amazon S3,1
 Adapters,Parquet,1
 Parquet,Amazon S3,1
-Enterprise services,Connectors,4
-Connectors,"$protocol",2
-"$protocol","webM $protocol Connector",2
-Enterprise services,Layered Products,4
-Layered Products,"$type",2
-"$type","webM $type Product",2
+Enterprise services,Connectors,2
 Enterprise services,Standards,9
 Standards,XML,0.5
 XML,Amazon Web services,0.5
@@ -57,6 +57,8 @@ Messaging,Message Pub & Sub,2
 Message Pub & Sub,Amazon SNS,2
 Messaging,Message Queueing,2
 Message Queueing,Amazon SQS,2
+Infrastructure services,Pooling,2
+Pooling,Amazon EC2,2
 Infrastructure services,Authentication,0.66
 Authentication,Security Identity & Compliance,0.66
 Infrastructure services,Authorization,0.66
@@ -64,8 +66,6 @@ Authorization,Security Identity & Compliance,0.66
 Infrastructure services,Licensing,0.66
 Licensing,Security Identity & Compliance,0.66
 Security Identity & Compliance,Amazon Cognito,2
-Infrastructure services,Pooling,2
-Pooling,Amazon EC2,2
 Infrastructure services,Statistics,2
 Statistics,AWS X-Ray,2
 Infrastructure services,Logging,1
