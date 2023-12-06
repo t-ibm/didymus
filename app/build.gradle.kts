@@ -37,5 +37,5 @@ tasks {
             }
         }
     }
-    project.rootProject.defaultTasks(clean.get().name, "createDiagramOrigin", "createDiagramCreateDefaultEdge", "createDiagramCreateEdgeDefault", "createDiagramMicroservicesBuildingBlocks")
+    project.rootProject.defaultTasks(clean.get().name, "createDiagramOrigin", "createDiagramCreateDefaultEdge", "createDiagramCreateEdgeDefault", "createDiagramMicroservicesBuildingBlocks", "elkStack", "elkStackFluent")
 }

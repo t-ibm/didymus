@@ -1,0 +1,34 @@
+flowchart LR
+  subgraph P1[Pod]
+    subgraph C1[Container]
+      subgraph B1[App]
+        I1(Log API) --> A1(Log Appender)
+      end
+      A1 --> |logging<br/>audit<br/>metrics<br/>tracing| F1(Log Forwarder)
+    end
+    subgraph C2[Container]
+      subgraph B2[App]
+        I2(Log API) --> A2(Log Appender)
+      end
+      A2 --> |logging<br/>audit<br/>metrics<br/>tracing| F2(Log Forwarder)
+    end
+    subgraph C3[Container]
+      subgraph B3[App]
+        I3(Log API) --> A3(Log Appender)
+      end
+      A3 --> |logging<br/>audit<br/>metrics<br/>tracing| F3(Log Forwarder)
+    end
+  end
+  F1 --> L(((Log Aggregator)))
+  F2 --> L
+  F3 --> L
+  L --> E1[(Log Storage)]
+  L --> E2[(Log Storage)]
+  subgraph P3[Pod]
+    subgraph C4[Container]
+      K1(Log Visualization & Exploration)
+      K2(Log Visualization & Exploration)
+    end
+  end
+  E1 -.- K1
+  E2 -.- K2
