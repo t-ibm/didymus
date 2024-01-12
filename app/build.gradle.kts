@@ -1,7 +1,7 @@
 import com.github.gradle.node.npm.task.NpxTask
 
 plugins {
-    id("com.github.node-gradle.node") version "3.5.1"
+    id("com.github.node-gradle.node") version "7.0.1"
 }
 
 repositories {
@@ -37,5 +37,14 @@ tasks {
             }
         }
     }
-    project.rootProject.defaultTasks(clean.get().name, "createDiagramOrigin", "createDiagramCreateDefaultEdge", "createDiagramCreateEdgeDefault", "createDiagramMicroservicesBuildingBlocks", "elkStack", "elkStackFluent")
+    project.rootProject.defaultTasks(
+        clean.get().name,
+        "createDiagramOrigin",
+        "createDiagramCreateDefaultEdge",
+        "createDiagramCreateEdgeDefault",
+        "createDiagramMicroservicesBuildingBlocks",
+        "createDiagramElkStack",
+        "createDiagramElkStackFluent",
+        "createDiagramElkStackTest"
+    )
 }
