@@ -1,22 +1,32 @@
 flowchart LR
   subgraph P1[Pod]
-    subgraph C1[Container]
+    subgraph C11[Container]
       subgraph B1[App]
         I1(Log API) --> A1(Log Appender)
       end
-      A1 --> |logging<br/>audit<br/>metrics<br/>tracing| F1(Log Forwarder)
     end
-    subgraph C2[Container]
+    subgraph C12[Container]
+      A1 --> |journal<br/>audit<br/>metrics<br/>tracing| F1(Log Forwarder)
+    end
+  end
+  subgraph P2[Pod]
+    subgraph C21[Container]
       subgraph B2[App]
         I2(Log API) --> A2(Log Appender)
       end
-      A2 --> |logging<br/>audit<br/>metrics<br/>tracing| F2(Log Forwarder)
     end
-    subgraph C3[Container]
+    subgraph C22[Container]
+      A2 --> |journal<br/>audit<br/>metrics<br/>tracing| F2(Log Forwarder)
+    end
+  end
+  subgraph P3[Pod]
+    subgraph C31[Container]
       subgraph B3[App]
         I3(Log API) --> A3(Log Appender)
       end
-      A3 --> |logging<br/>audit<br/>metrics<br/>tracing| F3(Log Forwarder)
+    end
+    subgraph C32[Container]
+      A3 --> |journal<br/>audit<br/>metrics<br/>tracing| F3(Log Forwarder)
     end
   end
   F1 --> L(((Log Aggregator)))
@@ -24,11 +34,15 @@ flowchart LR
   F3 --> L
   L --> E1[(Log Storage)]
   L --> E2[(Log Storage)]
-  subgraph P3[Pod]
+  subgraph P4[Pod]
     subgraph C4[Container]
-      K1(Log Visualization & Exploration)
-      K2(Log Visualization & Exploration)
+      K4(Log Visualization & Exploration)
     end
   end
-  E1 -.- K1
-  E2 -.- K2
+  subgraph P5[Pod]
+    subgraph C5[Container]
+      K5(Log Visualization & Exploration)
+    end
+  end
+  E1 -.- K4
+  E2 -.- K5
