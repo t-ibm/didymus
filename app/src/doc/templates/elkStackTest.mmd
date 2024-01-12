@@ -1,0 +1,19 @@
+flowchart LR
+  subgraph P1[Pod]
+    subgraph C11[Container]
+      subgraph B1[App]
+        I1(Log4J2 API) --> A1(FluentAppender)
+      end
+    end
+    subgraph C12[Container]
+      A1 --> |logging<br/>audit<br/>metrics<br/>tracing| F1(fluentd<br/>Forwarder)
+    end
+  end
+  F1 --> L(((fluentd<br/>Aggregator)))
+  L --> E1[(Logstash)]
+  subgraph P4[Pod]
+    subgraph C4[Container]
+      K4(Kibana)
+    end
+  end
+  E1 -.- K4
