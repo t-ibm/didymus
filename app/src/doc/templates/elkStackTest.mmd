@@ -10,7 +10,7 @@ flowchart LR
     end
   end
   F1 --> L(((fluentd<br/>Aggregator)))
-  L --> E1[(Logstash)]
+  L --> E1[(ElasticSearch)]
   subgraph P4[Pod]
     subgraph C4[Container]
       K4(Kibana)
