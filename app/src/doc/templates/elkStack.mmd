@@ -1,5 +1,5 @@
 flowchart LR
-  subgraph P1[Pod]
+  subgraph N1[Node]
     subgraph C11[Container]
       subgraph B1[App]
         I1(Log API) --> A1(Log Appender)
@@ -9,7 +9,7 @@ flowchart LR
       A1 --> |journal<br/>audit<br/>metrics<br/>tracing| F1(Log Forwarder)
     end
   end
-  subgraph P2[Pod]
+  subgraph N2[Node]
     subgraph C21[Container]
       subgraph B2[App]
         I2(Log API) --> A2(Log Appender)
@@ -19,7 +19,7 @@ flowchart LR
       A2 --> |journal<br/>audit<br/>metrics<br/>tracing| F2(Log Forwarder)
     end
   end
-  subgraph P3[Pod]
+  subgraph N3[Node]
     subgraph C31[Container]
       subgraph B3[App]
         I3(Log API) --> A3(Log Appender)
