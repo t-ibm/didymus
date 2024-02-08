@@ -10,6 +10,8 @@ repositories {
 
 node.apply {
     download.set(true)
+    version.set("20.5.0")
+    npmVersion.set("10.4.0")
 }
 
 tasks {
