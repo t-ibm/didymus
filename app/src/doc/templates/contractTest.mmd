@@ -1,0 +1,17 @@
+sequenceDiagram
+    box rgba(0, 255, 255, .1) Unit Test
+        participant Consumer
+        participant Mock Provider
+    end
+    Consumer->>+Mock Provider: Actual request
+    Mock Provider->>Consumer: Expected reponse
+    rect rgba(0, 255, 0, .1)
+        Mock Provider-->>-Contract: Capture interactions
+        Mock Service-->>Contract: Replay interactions
+    end
+    box rgba(255, 0, 255, .1) Integration Test
+        participant Mock Service
+        participant Provider
+    end
+    Mock Service->>+Provider: Expected request
+    Provider->>-Mock Service: Actual response
