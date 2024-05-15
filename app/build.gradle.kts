@@ -47,6 +47,7 @@ tasks {
         "createDiagramMicroservicesBuildingBlocks",
         "createDiagramElkStack",
         "createDiagramElkStackFluent",
-        "createDiagramElkStackTest"
+        "createDiagramElkStackTest",
+        "createDiagramContractTest"
     )
 }
